@@ -53,7 +53,7 @@ export default function App() {
   const [isEnabled, setIsEnabled] = useState(false);
   const toggleSwitch = () => setIsEnabled(previousState => !previousState);
 
-
+  const [text, onChangeText] = React.useState('Please write your review HERE');
 
   return (
     <ScrollView>
@@ -124,7 +124,13 @@ export default function App() {
         <Text style={styles.thankYouFooter}> Hi! I'm Knerup. Thank you for visiting my App. I hope you enjoyed the recipes!</Text>
       </View>
 
-      <View>
+      <View style={styles.uselessComponents}>
+        <Text style={styles.uselessReview}> If you werent satisfied with our recipe book, please leave us a review message below. Thank you!</Text>
+        <TextInput
+          style={styles.input}
+          onChangeText={onChangeText}
+          value={text}
+        />
         <Switch
           trackColor={{ false: '#767577', true: '#81b0ff' }}
           thumbColor={isEnabled ? '#f5dd4b' : '#f4f3f4'}
@@ -180,6 +186,19 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     padding: 20,
   },
+  uselessComponents: {
+    padding: 60,
+    flex: 1,
+    backgroundColor: 'lightblue',
+    margin: 20,
+    textAlign: 'center',
+    justifyContent: 'center',
+  },
+  uselessReview: {
+    fontSize: 20,
+    textAlign: 'center', 
+    fontWeight: 'bold', 
+  }, 
   recipeName: {
     fontWeight: 'bold',
     fontSize: 18,
