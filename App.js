@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { StatusBar } from 'expo-status-bar';
-import { ScrollView, StyleSheet, Text, View, Button, Alert } from 'react-native';
+import { ScrollView, StyleSheet, Text, View, Button, Alert, Image, TextInput, Switch } from 'react-native';
 import SegmentedControl from '@react-native-segmented-control/segmented-control';
 
 export default function App() {
@@ -47,7 +47,11 @@ export default function App() {
 
   let buttonTitle = 'Love These Recipes? Save Them Now!'
 
-  let buttonColor = 'blue';
+  let buttonColor = 'purple';
+
+
+  const [isEnabled, setIsEnabled] = useState(false);
+  const toggleSwitch = () => setIsEnabled(previousState => !previousState);
 
 
 
@@ -95,10 +99,38 @@ export default function App() {
 
       <View style={styles.button}>
         <Button
-          onPress={() => {Alert.alert('Recipes Saved. Thank You! Be sure to share as well!'); {toggleButton};}}
+          onPress={() => {
+            Alert.alert('Recipes Saved. Thank You! Be sure to share as well!');
+            { toggleButton };
+          }}
+
           title={buttonTitle}
           color={buttonColor}
           accessibilityLabel="Button that onced pressed will pop up an alert for the user"
+        />
+      </View>
+
+      <View style={styles.imageContainer}>
+        <Image
+          style={styles.image}
+          source={{
+            uri: 'https://knerup.com/media/knerup-img.jpg',
+          }}>
+        </Image>
+      </View>
+
+      <View>
+        {/* Thank you footer & Explai image */}
+        <Text style={styles.thankYouFooter}> Hi! I'm Knerup. Thank you for visiting my App. I hope you enjoyed the recipes!</Text>
+      </View>
+
+      <View>
+        <Switch
+          trackColor={{ false: '#767577', true: '#81b0ff' }}
+          thumbColor={isEnabled ? '#f5dd4b' : '#f4f3f4'}
+          ios_backgroundColor="#3e3e3e"
+          onValueChange={toggleSwitch}
+          value={isEnabled}
         />
       </View>
     </ScrollView>
@@ -130,7 +162,24 @@ const styles = StyleSheet.create({
   },
   button: {
     padding: 50,
-  }, 
+  },
+  image: {
+    width: 165,
+    height: 165,
+  },
+  imageContainer: {
+    textAlign: 'center',
+    justifyContent: 'center',
+    paddingLeft: 120,
+    paddingRight: 120,
+    paddingBottom: 20,
+  },
+  thankYouFooter: {
+    fontSize: 12,
+    fontWeight: 'bold',
+    textAlign: 'center',
+    padding: 20,
+  },
   recipeName: {
     fontWeight: 'bold',
     fontSize: 18,
