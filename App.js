@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { StatusBar } from 'expo-status-bar';
-import { ScrollView, StyleSheet, Text, View, Button } from 'react-native';
+import { ScrollView, StyleSheet, Text, View, Button, Alert } from 'react-native';
 import SegmentedControl from '@react-native-segmented-control/segmented-control';
 
 export default function App() {
@@ -39,6 +39,16 @@ export default function App() {
   };
 
   const selectedRecipe = recipeData.find((data) => data.recipe === selectedFood);
+
+  const toggleButton = () => {
+    buttonColor = 'red';
+    buttonTitle = 'Saved!'
+  };
+
+  let buttonTitle = 'Love These Recipes? Save Them Now!'
+
+  let buttonColor = 'blue';
+
 
 
   return (
@@ -81,6 +91,16 @@ export default function App() {
         {/* The Recipe Instructions */}
         <Text style={styles.recipeIngredients} >{selectedRecipe.instructions}</Text>
       </View>
+
+
+      <View style={styles.button}>
+        <Button
+          onPress={() => {Alert.alert('Recipes Saved. Thank You! Be sure to share as well!'); {toggleButton};}}
+          title={buttonTitle}
+          color={buttonColor}
+          accessibilityLabel="Button that onced pressed will pop up an alert for the user"
+        />
+      </View>
     </ScrollView>
   );
 }
@@ -108,6 +128,9 @@ const styles = StyleSheet.create({
   toggleButton: {
     marginBottom: 10,
   },
+  button: {
+    padding: 50,
+  }, 
   recipeName: {
     fontWeight: 'bold',
     fontSize: 18,
